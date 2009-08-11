@@ -116,7 +116,7 @@ float ar = 1.0f;
 //Abilita l'illuminazione della scena
 void lightOn(void)
 {
-	glEnable(GL_COLOR_MATERIAL);
+//	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 }
@@ -124,7 +124,7 @@ void lightOn(void)
 //Disabilita l'illuminazione della scena
 void lightOff(void)
 {
-	glDisable(GL_COLOR_MATERIAL);
+//	glDisable(GL_COLOR_MATERIAL);
 	glDisable(GL_LIGHTING);
 	glDisable(GL_LIGHT0);
 }
@@ -412,15 +412,16 @@ void init(void)
 {
 	float ambient[] = {1.0f, 1.0f, 1.0f};
 	float diffuse[] = {1.0f, 1.0f, 1.0f};
-	float specular[] = {1.0f, 1.0f, 1.0f};
+	float specular[] = {0.0f, 0.0f, 0.0f};
 	glEnable(GL_LIGHTING);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
 	glEnable(GL_LIGHT0);
 
-	glColorMaterial(GL_FRONT, GL_DIFFUSE);
-	glEnable(GL_COLOR_MATERIAL);
+	// da usare solo insieme a glColor per definire un colore indipendente dalle sorgenti di luce!
+//	glColorMaterial(GL_FRONT, GL_DIFFUSE);
+//	glEnable(GL_COLOR_MATERIAL);
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -561,10 +562,10 @@ void display(void)
 
 	glLightfv(GL_LIGHT0, GL_POSITION, light0Position);
 
-	glMaterialfv(GL_FRONT, GL_AMBIENT, cubeMAmbient);
+/*	glMaterialfv(GL_FRONT, GL_AMBIENT, cubeMAmbient);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, cubeMDiffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, cubeMSpecular);
-	glMaterialf(GL_FRONT, GL_SHININESS, cubeMShininess);
+	glMaterialf(GL_FRONT, GL_SHININESS, cubeMShininess);*/
 
 
 	//DISEGNO
