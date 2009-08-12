@@ -90,7 +90,7 @@ int loadMTL(char* path, int id)
 			}
 			else if (strstr(line, "Ns") != NULL)
 			{
-				sscanf(line, "%*c%*c %f %f %f", &shininess[id]);
+				sscanf(line, "%*c%*c %f", &shininess[id]);
 			}
 		}
 		loaded = 1;

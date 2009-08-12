@@ -412,7 +412,7 @@ void init(void)
 {
 	float ambient[] = {1.0f, 1.0f, 1.0f};
 	float diffuse[] = {1.0f, 1.0f, 1.0f};
-	float specular[] = {0.0f, 0.0f, 0.0f};
+	float specular[] = {1.0f, 1.0f, 1.0f};
 	glEnable(GL_LIGHTING);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
