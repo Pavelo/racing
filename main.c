@@ -5,6 +5,7 @@
 #include <time.h>
 #include <sys/time.h>
 #include <math.h>
+#include "tga.h"
 
 //COSTANTI
 #define WIDTH 800
@@ -413,7 +414,8 @@ void init(void)
 	float ambient[] = {1.0f, 1.0f, 1.0f};
 	float diffuse[] = {1.0f, 1.0f, 1.0f};
 	float specular[] = {1.0f, 1.0f, 1.0f};
-	glEnable(GL_LIGHTING);
+
+    glEnable(GL_LIGHTING);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
@@ -527,10 +529,10 @@ void init(void)
 	sprintf(stampe,"Accelerazione: %f.\n Velocitˆ: %f.\n",userCar.throttle,sqrt(userCar.v[0]*userCar.v[0]+userCar.v[2]*userCar.v[2]));
 
 	//carico i modelli
-	loadOBJ("obj/torus.obj", 0);
-/*	loadOBJ("obj/mycube.obj", 1);
-	loadOBJ("obj/pyramid.obj", 2);*/
-	//loadOBJ("obj/tree.obj", 1);
+	loadOBJ("obj/pyramid.obj", 0);
+	loadOBJ("obj/red_pyr.obj", 1);
+	loadOBJ("obj/dice.obj", 2);
+	loadOBJ("obj/tree.obj", 3);
 
 }
 
@@ -578,7 +580,7 @@ void display(void)
 //		drawCube(1.0f, 1.0f, 1.0f);
 	glPopMatrix();
 
-/*	glPushMatrix();
+	glPushMatrix();
 //		glRotatef(45, 1.0f, 0.0f, 0.0f);
 		glTranslatef(0.0f, 2.0f, 0.0f);
 		drawOBJ(1);
@@ -589,11 +591,11 @@ void display(void)
 		glTranslatef(3.0f, 0.0f, 0.0f);
 		drawOBJ(2);
 	glPopMatrix();
-*/
+
 	//tree
 /*	glPushMatrix();
-		glTranslatef(2.0f, 0.0f, 0.0f);
-		drawOBJ(1);
+		glTranslatef(1.0f, 0.0f, 3.0f);
+		drawOBJ(3);
 	glPopMatrix();
 
 	//torus

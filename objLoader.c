@@ -64,6 +64,8 @@ float ambient[10][3];
 float diffuse[10][3];
 float specular[10][3];
 float shininess[10];
+char textureName[10][32];
+char texturePath[32];
 
 int loadMTL(char* path, int id)
 {
@@ -76,10 +78,24 @@ int loadMTL(char* path, int id)
 	{
 		while (fgets(line, 99, fp))
 		{
-			if (strstr(line, "Kd") != NULL)
+			if (strstr(line, "map_Kd") != NULL)
+			{
+        		strncpy(textureName[id], line + 7, strlen(line)-8);
+        		printf(" [%s ", textureName[id]);
+        		sprintf(texturePath, "texture/%s", textureName[id]);
+        		printf("%d]", loadTGA(texturePath, id));
+
+        		// reinizializzo le stringhe
+        		int i;
+        		for (i=0; i<32; i++)
+        		{
+        			texturePath[i] = '\0';
+        		}
+			}
+			else if (strstr(line, "Kd") != NULL)
 			{
 				sscanf(line, "%*c%*c %f %f %f", &diffuse[id][0], &diffuse[id][1], &diffuse[id][2]);
-			}
+ 			}
 			else if (strstr(line, "Ka") != NULL)
 			{
 				sscanf(line, "%*c%*c %f %f %f", &ambient[id][0], &ambient[id][1], &ambient[id][2]);
@@ -157,10 +173,18 @@ int loadOBJ(char* path, int id)
         	}
         	else if (strstr(line, "mtllib") != NULL)
         	{
-        		strncpy(mtllibName, line + 7, strlen(line)-8);
+        		strncpy(mtllibName, line+7, strlen(line)-8);
         		printf(mtllibName);
         		sprintf(mtllibPath, "obj/%s", mtllibName);
-        		printf("%d",loadMTL(mtllibPath, id));
+        		printf(" %d\n",loadMTL(mtllibPath, id));
+
+        		// reinizializzo le stringhe
+        		int i;
+        		for (i=0; i<32; i++)
+        		{
+        			mtllibName[i] = '\0';
+        			mtllibPath[i] = '\0';
+        		}
         	}
 //        	printf("v %f %f %f\n", v[id][vCount].x, v[id][vCount].y, v[id][vCount].z);
 //        	printf("%f %f %f\n", vn[id][f[id][fCount].n1-1].x, vn[id][f[id][fCount].n1-1].y, vn[id][f[id][fCount].n1-1].z);
