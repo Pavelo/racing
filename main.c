@@ -529,10 +529,10 @@ void init(void)
 	sprintf(stampe,"Accelerazione: %f.\n Velocitˆ: %f.\n",userCar.throttle,sqrt(userCar.v[0]*userCar.v[0]+userCar.v[2]*userCar.v[2]));
 
 	//carico i modelli
-	loadOBJ("obj/pyramid.obj", 0);
-	loadOBJ("obj/red_pyr.obj", 1);
-	loadOBJ("obj/dice.obj", 2);
-	loadOBJ("obj/tree.obj", 3);
+//	loadOBJ("obj/pyramid.obj", 0);
+//	loadOBJ("obj/torus.obj", 1);
+	loadOBJ("obj/dice.obj", 0);
+//	loadOBJ("obj/tree.obj", 3);
 
 }
 
@@ -575,7 +575,7 @@ void display(void)
 
 	glPushMatrix();
 //		glRotatef(20, 1.0f, 0.0f, 0.0f);
-		glTranslatef(-3.0f, 0.0f, 0.0f);
+		glTranslatef(-5.0f, 0.0f, 0.0f);
 		drawOBJ(0);
 //		drawCube(1.0f, 1.0f, 1.0f);
 	glPopMatrix();
@@ -583,13 +583,13 @@ void display(void)
 	glPushMatrix();
 //		glRotatef(45, 1.0f, 0.0f, 0.0f);
 		glTranslatef(0.0f, 2.0f, 0.0f);
-		drawOBJ(1);
+//		drawOBJ(1);
 	glPopMatrix();
 
 	glPushMatrix();
 //		glRotatef(90, 1.0f, 0.0f, 0.0f);
 		glTranslatef(3.0f, 0.0f, 0.0f);
-		drawOBJ(2);
+//		drawOBJ(2);
 	glPopMatrix();
 
 	//tree

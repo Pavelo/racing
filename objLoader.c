@@ -214,18 +214,28 @@ void drawOBJ(int id)
 	glMaterialfv(GL_FRONT, GL_SPECULAR, specular[id]);
 	glMaterialf(GL_FRONT, GL_SHININESS, shininess[id]);
 
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, id);
+
     glBegin(GL_QUADS);
 
 		int i;
         for (i=0; i<fCount; i++)
         {
         	glNormal3f(vn[id][f[id][i].n1-1].x, vn[id][f[id][i].n1-1].y, vn[id][f[id][i].n1-1].z);
+        	glTexCoord2f(vt[id][f[id][i].t1-1].u, vt[id][f[id][i].t1-1].v);
         	glVertex3f(v[id][f[id][i].v1-1].x, v[id][f[id][i].v1-1].y, v[id][f[id][i].v1-1].z);
+
         	glNormal3f(vn[id][f[id][i].n2-1].x, vn[id][f[id][i].n2-1].y, vn[id][f[id][i].n2-1].z);
+        	glTexCoord2f(vt[id][f[id][i].t2-1].u, vt[id][f[id][i].t2-1].v);
             glVertex3f(v[id][f[id][i].v2-1].x, v[id][f[id][i].v2-1].y, v[id][f[id][i].v2-1].z);
+
         	glNormal3f(vn[id][f[id][i].n3-1].x, vn[id][f[id][i].n3-1].y, vn[id][f[id][i].n3-1].z);
+            glTexCoord2f(vt[id][f[id][i].t3-1].u, vt[id][f[id][i].t3-1].v);
             glVertex3f(v[id][f[id][i].v3-1].x, v[id][f[id][i].v3-1].y, v[id][f[id][i].v3-1].z);
+
         	glNormal3f(vn[id][f[id][i].n4-1].x, vn[id][f[id][i].n4-1].y, vn[id][f[id][i].n4-1].z);
+        	glTexCoord2f(vt[id][f[id][i].t4-1].u, vt[id][f[id][i].t4-1].v);
             glVertex3f(v[id][f[id][i].v4-1].x, v[id][f[id][i].v4-1].y, v[id][f[id][i].v4-1].z);
 
             /*printf("v1 %f %f %f\n", v[id][f[id][i].v1-1].x, v[id][f[id][i].v1-1].y, v[id][f[id][i].v1-1].z);
@@ -240,4 +250,6 @@ void drawOBJ(int id)
         }
 
     glEnd();
+
+    glDisable(GL_TEXTURE_2D);
 }
