@@ -220,14 +220,14 @@ void removeFromLifetime(float lt, particles **root)
 			{
 				if(tmp->next != NULL)
 				{
-					printf("\nraggio = %f cambia next\n", p->lifetime);
-					printf("raggio da eliminare = %f\n", tmp->lifetime);
+//					printf("\nraggio = %f cambia next\n", p->lifetime);
+//					printf("raggio da eliminare = %f\n", tmp->lifetime);
 					p->next = tmp->next;
 					free(tmp);
 					tmp = tmp->next;
 				} else
 				{
-					printf("sono da eliminare e punto a null\n\n");
+//					printf("sono da eliminare e punto a null\n\n");
 					p->next = NULL;
 					free(tmp);
 					tmp = NULL;
@@ -416,10 +416,21 @@ void init(void)
 	float specular[] = {1.0f, 1.0f, 1.0f};
 
     glEnable(GL_LIGHTING);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
+
+    glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
 	glEnable(GL_LIGHT0);
+
+	glLightfv(GL_LIGHT1, GL_AMBIENT, ambient);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, specular);
+	glEnable(GL_LIGHT1);
+
+	glLightfv(GL_LIGHT2, GL_AMBIENT, ambient);
+	glLightfv(GL_LIGHT2, GL_DIFFUSE, diffuse);
+	glLightfv(GL_LIGHT2, GL_SPECULAR, specular);
+	glEnable(GL_LIGHT2);
 
 	// da usare solo insieme a glColor per definire un colore indipendente dalle sorgenti di luce!
 //	glColorMaterial(GL_FRONT, GL_DIFFUSE);
@@ -529,17 +540,18 @@ void init(void)
 	sprintf(stampe,"Accelerazione: %f.\n Velocitˆ: %f.\n",userCar.throttle,sqrt(userCar.v[0]*userCar.v[0]+userCar.v[2]*userCar.v[2]));
 
 	//carico i modelli
-//	loadOBJ("obj/pyramid.obj", 0);
-//	loadOBJ("obj/torus.obj", 1);
-	loadOBJ("obj/dice.obj", 0);
-//	loadOBJ("obj/tree.obj", 3);
+	loadOBJ("obj/crate.obj", 0);
+	loadOBJ("obj/dice.obj", 1);
+	loadOBJ("obj/shock.obj", 2);
 
 }
 
 void display(void)
 {
 	particles *p;
-	float light0Position[] = {0.0f, 2.0f, 20.0f, 1.0f};
+	float light0Position[] = {0.0f, 10.0f, 20.0f, 1.0f};
+	float light1Position[] = {20.0f, -10.0f, 0.0f, 1.0f};
+	float light2Position[] = {-20.0f, 0.0f, -20.0f, 1.0f};
 	float cubeMAmbient[] = {0.1f, 0.1f, 0.1f};
 	float cubeMDiffuse[] = {0.5f, 0.5f, 0.5f};
 	float cubeMSpecular[] = {0.0f, 0.0f, 0.0f};
@@ -563,6 +575,8 @@ void display(void)
 			0.0f, 1.0f, 0.0f);//Up
 
 	glLightfv(GL_LIGHT0, GL_POSITION, light0Position);
+	glLightfv(GL_LIGHT1, GL_POSITION, light1Position);
+	glLightfv(GL_LIGHT2, GL_POSITION, light2Position);
 
 /*	glMaterialfv(GL_FRONT, GL_AMBIENT, cubeMAmbient);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, cubeMDiffuse);
@@ -576,6 +590,7 @@ void display(void)
 	glPushMatrix();
 //		glRotatef(20, 1.0f, 0.0f, 0.0f);
 		glTranslatef(-5.0f, 0.0f, 0.0f);
+//		glTranslatef(0.0f, 2.0f, 0.0f);
 		drawOBJ(0);
 //		drawCube(1.0f, 1.0f, 1.0f);
 	glPopMatrix();
@@ -583,13 +598,13 @@ void display(void)
 	glPushMatrix();
 //		glRotatef(45, 1.0f, 0.0f, 0.0f);
 		glTranslatef(0.0f, 2.0f, 0.0f);
-//		drawOBJ(1);
+		drawOBJ(1);
 	glPopMatrix();
 
 	glPushMatrix();
 //		glRotatef(90, 1.0f, 0.0f, 0.0f);
 		glTranslatef(3.0f, 0.0f, 0.0f);
-//		drawOBJ(2);
+		drawOBJ(2);
 	glPopMatrix();
 
 	//tree
