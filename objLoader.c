@@ -50,15 +50,35 @@ typedef struct
 
 } Face;
 
+typedef struct
+{
+
+	int v1;
+	int t1;
+	int n1;
+
+	int v2;
+	int t2;
+	int n2;
+
+	int v3;
+	int t3;
+	int n3;
+
+} Face3;
+
+
 Vertex v[10][50000];
 VTexture vt[10][50000];
 VNormal vn[10][50000];
 Face f[10][50000];
+Face3 f3[10][50000];
 
 int vCount;
 int vtCount;
 int vnCount;
 int fCount;
+int f3Count;
 
 float ambient[10][3];
 float diffuse[10][3];
@@ -130,6 +150,7 @@ int loadOBJ(char* path, int id)
     vtCount = 0;
     vnCount = 0;
     fCount = 0;
+    f3Count = 0;
 
     FILE *fp = fopen(path,"r");
 
@@ -164,12 +185,33 @@ int loadOBJ(char* path, int id)
         	// face
         	else if (line[0] == 'f')
         	{
-        		sscanf(line, "%*c %d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d",
-        				&f[id][fCount].v1, &f[id][fCount].t1, &f[id][fCount].n1,
-        				&f[id][fCount].v2, &f[id][fCount].t2, &f[id][fCount].n2,
-        				&f[id][fCount].v3, &f[id][fCount].t3, &f[id][fCount].n3,
-						&f[id][fCount].v4, &f[id][fCount].t4, &f[id][fCount].n4);
-        		fCount++;
+        		int n = 0;
+        		int spaceCount = 0;
+        		while (line[n] != '\0')
+        		{
+        			if (line[n]==' ')
+        				spaceCount++;
+        			n++;
+        		}
+        		printf("%d\n", spaceCount);
+        		if (spaceCount == 3)
+        		{
+					sscanf(line, "%*c %d/%d/%d %d/%d/%d %d/%d/%d",
+							&f3[id][f3Count].v1, &f3[id][f3Count].t1, &f3[id][f3Count].n1,
+							&f3[id][f3Count].v2, &f3[id][f3Count].t2, &f3[id][f3Count].n2,
+							&f3[id][f3Count].v3, &f3[id][f3Count].t3, &f3[id][f3Count].n3);
+					f3Count++;
+					printf("ciao");
+       		}
+        		else if (spaceCount == 4)
+        		{
+					sscanf(line, "%*c %d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d",
+							&f[id][fCount].v1, &f[id][fCount].t1, &f[id][fCount].n1,
+							&f[id][fCount].v2, &f[id][fCount].t2, &f[id][fCount].n2,
+							&f[id][fCount].v3, &f[id][fCount].t3, &f[id][fCount].n3,
+							&f[id][fCount].v4, &f[id][fCount].t4, &f[id][fCount].n4);
+					fCount++;
+        		}
         	}
         	else if (strstr(line, "mtllib") != NULL)
         	{
@@ -247,6 +289,33 @@ void drawOBJ(int id)
             printf("vn2 %f %f %f\n", vn[id][f[id][i].n2-1].x, vn[id][f[id][i].n2-1].y, vn[id][f[id][i].n2-1].z);
             printf("vn3 %f %f %f\n", vn[id][f[id][i].n3-1].x, vn[id][f[id][i].n3-1].y, vn[id][f[id][i].n3-1].z);
             printf("vn4 %f %f %f\n", vn[id][f[id][i].n4-1].x, vn[id][f[id][i].n4-1].y, vn[id][f[id][i].n4-1].z);*/
+        }
+
+    glEnd();
+
+    glBegin(GL_TRIANGLES);
+
+    for (i=0; i<f3Count; i++)
+        {
+        	glNormal3f(vn[id][f3[id][i].n1-1].x, vn[id][f3[id][i].n1-1].y, vn[id][f3[id][i].n1-1].z);
+        	glTexCoord2f(vt[id][f3[id][i].t1-1].u, vt[id][f3[id][i].t1-1].v);
+        	glVertex3f(v[id][f3[id][i].v1-1].x, v[id][f3[id][i].v1-1].y, v[id][f3[id][i].v1-1].z);
+
+        	glNormal3f(vn[id][f3[id][i].n2-1].x, vn[id][f3[id][i].n2-1].y, vn[id][f3[id][i].n2-1].z);
+        	glTexCoord2f(vt[id][f3[id][i].t2-1].u, vt[id][f3[id][i].t2-1].v);
+            glVertex3f(v[id][f3[id][i].v2-1].x, v[id][f3[id][i].v2-1].y, v[id][f3[id][i].v2-1].z);
+
+        	glNormal3f(vn[id][f3[id][i].n3-1].x, vn[id][f3[id][i].n3-1].y, vn[id][f3[id][i].n3-1].z);
+            glTexCoord2f(vt[id][f3[id][i].t3-1].u, vt[id][f3[id][i].t3-1].v);
+            glVertex3f(v[id][f3[id][i].v3-1].x, v[id][f3[id][i].v3-1].y, v[id][f3[id][i].v3-1].z);
+
+/*            printf("v1 %f %f %f\n", v[id][f[id][i].v1-1].x, v[id][f[id][i].v1-1].y, v[id][f[id][i].v1-1].z);
+            printf("v2 %f %f %f\n", v[id][f[id][i].v2-1].x, v[id][f[id][i].v2-1].y, v[id][f[id][i].v2-1].z);
+            printf("v3 %f %f %f\n", v[id][f[id][i].v3-1].x, v[id][f[id][i].v3-1].y, v[id][f[id][i].v3-1].z);
+
+            printf("vn1 %f %f %f\n", vn[id][f[id][i].n1-1].x, vn[id][f[id][i].n1-1].y, vn[id][f[id][i].n1-1].z);
+            printf("vn2 %f %f %f\n", vn[id][f[id][i].n2-1].x, vn[id][f[id][i].n2-1].y, vn[id][f[id][i].n2-1].z);
+            printf("vn3 %f %f %f\n", vn[id][f[id][i].n3-1].x, vn[id][f[id][i].n3-1].y, vn[id][f[id][i].n3-1].z);*/
         }
 
     glEnd();

@@ -540,9 +540,9 @@ void init(void)
 	sprintf(stampe,"Accelerazione: %f.\n Velocitˆ: %f.\n",userCar.throttle,sqrt(userCar.v[0]*userCar.v[0]+userCar.v[2]*userCar.v[2]));
 
 	//carico i modelli
-	loadOBJ("obj/crate.obj", 0);
-	loadOBJ("obj/dice.obj", 1);
-	loadOBJ("obj/shock.obj", 2);
+	loadOBJ("obj/tank1.obj", 0);
+//	loadOBJ("obj/dice.obj", 1);
+//	loadOBJ("obj/shock.obj", 2);
 
 }
 
@@ -589,7 +589,7 @@ void display(void)
 
 	glPushMatrix();
 //		glRotatef(20, 1.0f, 0.0f, 0.0f);
-		glTranslatef(-5.0f, 0.0f, 0.0f);
+		glTranslatef(0.0f, 5.0f, 0.0f);
 //		glTranslatef(0.0f, 2.0f, 0.0f);
 		drawOBJ(0);
 //		drawCube(1.0f, 1.0f, 1.0f);
@@ -643,8 +643,10 @@ void display(void)
 //	glColor4fv(carColor);
 	glTranslatef(userCar.pos[0], userCar.pos[1], userCar.pos[2]);
 	glRotatef(userCar.rot, 0.0f, 1.0f, 0.0f);
-	drawCube(userCar.width,userCar.height,userCar.length);
+	//drawCube(userCar.width,userCar.height,userCar.length);
 //	glColor4fv(wheelColor);
+	glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+	drawOBJ(0);
 	glPushMatrix();
 	glTranslatef(userWheel1.pos[0], userWheel1.pos[1], userWheel1.pos[2]);
 	drawCube(userWheel1.width,userWheel1.height,userWheel1.length);
