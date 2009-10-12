@@ -540,9 +540,7 @@ void init(void)
 	sprintf(stampe,"Accelerazione: %f.\n Velocitˆ: %f.\n",userCar.throttle,sqrt(userCar.v[0]*userCar.v[0]+userCar.v[2]*userCar.v[2]));
 
 	//carico i modelli
-	loadOBJ("obj/tank1.obj", 0);
-//	loadOBJ("obj/dice.obj", 1);
-//	loadOBJ("obj/shock.obj", 2);
+	loadOBJ("obj/tank_camo.obj", 0);
 
 }
 
@@ -598,13 +596,13 @@ void display(void)
 	glPushMatrix();
 //		glRotatef(45, 1.0f, 0.0f, 0.0f);
 		glTranslatef(0.0f, 2.0f, 0.0f);
-		drawOBJ(1);
+//		drawOBJ(1);
 	glPopMatrix();
 
 	glPushMatrix();
 //		glRotatef(90, 1.0f, 0.0f, 0.0f);
 		glTranslatef(3.0f, 0.0f, 0.0f);
-		drawOBJ(2);
+//		drawOBJ(2);
 	glPopMatrix();
 
 	//tree
